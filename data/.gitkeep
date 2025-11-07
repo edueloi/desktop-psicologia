@@ -1,0 +1,5 @@
+data/db/*.db
+data/db/*.db-journal
+data/files/
+!data/db/.gitkeep
+!data/files/.gitkeep
