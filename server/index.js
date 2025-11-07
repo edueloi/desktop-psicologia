@@ -291,4 +291,12 @@ function startServer() {
   });
 }
 
+// Se executado diretamente (não importado como módulo)
+if (require.main === module) {
+  startServer().catch(err => {
+    console.error('Erro ao iniciar servidor:', err);
+    process.exit(1);
+  });
+}
+
 module.exports = { startServer, app, dataDir, dbDir, filesDir };

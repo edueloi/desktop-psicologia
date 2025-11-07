@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+﻿import { useState, useEffect } from 'react';
 import {
   Box,
   Paper,
@@ -18,6 +18,7 @@ import {
   Stack,
   Chip,
   Alert,
+  Snackbar,
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -34,6 +35,7 @@ import {
   Notifications as NotificationsIcon,
   Palette as PaletteIcon,
 } from '@mui/icons-material';
+import api from '../services/api';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,6 +56,9 @@ export default function Profile() {
   const [tabValue, setTabValue] = useState(0);
   const [editing, setEditing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [originalData, setOriginalData] = useState<any>(null);
 
   // Dados do perfil
   const [profileData, setProfileData] = useState({
@@ -63,8 +68,8 @@ export default function Profile() {
     crp: 'CRP 06/123456',
     specialization: 'Psicologia Clínica',
     experience: '5 anos',
-    address: 'Séo Paulo, SP',
-    bio: 'Psicólogo clínico especializado em Terapia Cognitivo-Comportamental. Atuo principalmente com transtornos de ansiedade e depresséo.',
+    address: 'São Paulo, SP',
+    bio: 'Psicólogo clínico especializado em Terapia Cognitivo-Comportamental. Atuo principalmente com transtornos de ansiedade e depressão.',
   });
 
   // Configurações
@@ -78,13 +83,79 @@ export default function Profile() {
     soundAlerts: true,
   });
 
-  const handleSave = () => {
-    setEditing(false);
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 3000);
+  // Carregar dados do perfil ao montar o componente
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  const loadProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/profile');
+      const data = response.data;
+      
+      setProfileData({
+        name: data.name || 'Dr. Eduardo Silva',
+        email: data.email || 'eduardo.silva@email.com',
+        phone: data.phone || '(11) 98765-4321',
+        crp: data.crp || 'CRP 06/123456',
+        specialization: data.specialty || 'Psicologia Clínica',
+        experience: '5 anos',
+        address: data.address || 'São Paulo, SP',
+        bio: data.bio || 'Psicólogo clínico especializado em Terapia Cognitivo-Comportamental.',
+      });
+      setOriginalData(data);
+    } catch (err) {
+      console.error('Erro ao carregar perfil:', err);
+      setError('Erro ao carregar dados do perfil');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      await api.put('/profile', {
+        name: profileData.name,
+        email: profileData.email,
+        phone: profileData.phone,
+        bio: profileData.bio,
+        specialty: profileData.specialization,
+        crp: profileData.crp,
+        address: profileData.address,
+      });
+      
+      setEditing(false);
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 3000);
+      
+      // Recarregar dados atualizados
+      await loadProfile();
+    } catch (err) {
+      console.error('Erro ao salvar perfil:', err);
+      setError('Erro ao salvar perfil. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
+    // Restaurar dados originais
+    if (originalData) {
+      setProfileData({
+        name: originalData.name || 'Dr. Eduardo Silva',
+        email: originalData.email || 'eduardo.silva@email.com',
+        phone: originalData.phone || '(11) 98765-4321',
+        crp: originalData.crp || 'CRP 06/123456',
+        specialization: originalData.specialty || 'Psicologia Clínica',
+        experience: '5 anos',
+        address: originalData.address || 'São Paulo, SP',
+        bio: originalData.bio || 'Psicólogo clínico especializado em Terapia Cognitivo-Comportamental.',
+      });
+    }
     setEditing(false);
   };
 
@@ -205,14 +276,16 @@ export default function Profile() {
                   variant="contained"
                   startIcon={<SaveIcon />}
                   onClick={handleSave}
+                  disabled={loading}
                   sx={{ background: '#10B981', '&:hover': { background: '#059669' } }}
                 >
-                  Salvar
+                  {loading ? 'Salvando...' : 'Salvar'}
                 </Button>
                 <Button
                   variant="outlined"
                   startIcon={<CancelIcon />}
                   onClick={handleCancel}
+                  disabled={loading}
                   sx={{ borderColor: '#EF4444', color: '#EF4444' }}
                 >
                   Cancelar
@@ -637,6 +710,30 @@ export default function Profile() {
           </Box>
         </TabPanel>
       </Paper>
+
+      {/* Snackbar de sucesso */}
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={3000}
+        onClose={() => setShowSuccess(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          Perfil atualizado com sucesso!
+        </Alert>
+      </Snackbar>
+
+      {/* Snackbar de erro */}
+      <Snackbar
+        open={!!error}
+        autoHideDuration={6000}
+        onClose={() => setError('')}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
     "dev:vite": "vite",
-    "dev:electron": "wait-on http://localhost:5173 && cross-env NODE_ENV=development electron .",
+    "dev:electron": "wait-on http://localhost:5174 && cross-env NODE_ENV=development electron .",
     "start": "cross-env NODE_ENV=development electron .",
     "build": "tsc && vite build",
     "build:electron": "electron-builder",

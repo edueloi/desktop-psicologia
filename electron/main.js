@@ -32,7 +32,7 @@ function createWindow() {
 
   // Carrega a URL do Vite (dev) ou arquivo local (produção)
   if (isDev) {
-    mainWindow.loadURL('http://localhost:5173');
+    mainWindow.loadURL('http://localhost:5174');
     mainWindow.webContents.openDevTools();
   } else {
     // Tentar diferentes caminhos possíveis

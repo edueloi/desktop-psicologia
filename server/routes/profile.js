@@ -1,10 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const knex = require('knex');
-const knexConfig = require('../../knexfile');
-
-const env = process.env.NODE_ENV || 'development';
-const db = knex(knexConfig[env]);
 
 // GET /api/profile - Buscar perfil do usuário
 router.get('/', async (req, res) => {
@@ -13,7 +8,7 @@ router.get('/', async (req, res) => {
     // TODO: Implementar autenticação e pegar o ID do usuário logado
     const userId = 1;
 
-    const user = await db('users')
+    const user = await req.db('users')
       .where({ id: userId })
       .select('id', 'name', 'email', 'role', 'phone', 'bio', 'avatar', 'specialty', 'crp', 'address', 'city', 'state', 'created_at')
       .first();
@@ -56,11 +51,11 @@ router.put('/', async (req, res) => {
     if (city) updateData.city = city;
     if (state) updateData.state = state;
 
-    await db('users')
+    await req.db('users')
       .where({ id: userId })
       .update(updateData);
 
-    const updated = await db('users')
+    const updated = await req.db('users')
       .where({ id: userId })
       .select('id', 'name', 'email', 'role', 'phone', 'bio', 'avatar', 'specialty', 'crp', 'address', 'city', 'state')
       .first();
@@ -83,7 +78,7 @@ router.put('/password', async (req, res) => {
     }
 
     // Buscar usuário
-    const user = await db('users')
+    const user = await req.db('users')
       .where({ id: userId })
       .select('id', 'password')
       .first();
@@ -104,7 +99,7 @@ router.put('/password', async (req, res) => {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     // Atualizar senha
-    await db('users')
+    await req.db('users')
       .where({ id: userId })
       .update({ password: hashedPassword });
 
@@ -121,25 +116,25 @@ router.get('/statistics', async (req, res) => {
     const userId = 1; // TODO: Pegar do token
 
     // Total de pacientes
-    const totalPatients = await db('patients')
+    const totalPatients = await req.db('patients')
       .count('* as count')
       .first();
 
     // Total de consultas
-    const totalAppointments = await db('appointments')
+    const totalAppointments = await req.db('appointments')
       .count('* as count')
       .first();
 
     // Consultas este mês
     const now = new Date();
     const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-    const thisMonthAppointments = await db('appointments')
+    const thisMonthAppointments = await req.db('appointments')
       .where('date', '>=', firstDay.toISOString())
       .count('* as count')
       .first();
 
     // Taxa de comparecimento
-    const completedAppointments = await db('appointments')
+    const completedAppointments = await req.db('appointments')
       .where('status', 'completed')
       .count('* as count')
       .first();
