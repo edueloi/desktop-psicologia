@@ -5,19 +5,19 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ptBR } from "date-fns/locale";
 import { AuthProvider } from "./contexts/AuthContext";
 import { useAuth } from "./contexts/AuthContext";
-import Login from "./pages/Login.tsx";
-import Layout from "./components/Layout.tsx";
-import Dashboard from "./pages/DashboardNew.tsx";
-import Patients from "./pages/Patients.tsx";
-import AppointmentsCalendar from "./pages/AppointmentsCalendar.tsx";
-import Billing from "./pages/Billing.tsx";
-import Kanban from "./pages/KanbanBoards.tsx";
-import Reports from "./pages/Reports.tsx";
-import Settings from "./pages/Settings.tsx";
-import Profile from "./pages/Profile.tsx";
-import NotificationsPage from "./pages/NotificationsPage.tsx";
-import SearchPage from "./pages/SearchPage.tsx";
-import Help from "./pages/Help.tsx";
+import Login from "./pages/Login";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/DashboardNew";
+import Patients from "./pages/Patients";
+import AppointmentsCalendar from "./pages/AppointmentsCalendar";
+import Billing from "./pages/Billing";
+import Kanban from "./pages/KanbanBoards";
+import Reports from "./pages/Reports";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
+import NotificationsPage from "./pages/NotificationsPage";
+import SearchPage from "./pages/SearchPage";
+import Help from "./pages/Help";
 
 // ===================== THEME =====================
 const theme = createTheme({
