@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -44,7 +44,7 @@ const mockNotifications: Notification[] = [
     id: 1,
     type: "appointment",
     title: "Nova consulta agendada",
-    message: "Maria Silva agendou consulta para amanhã às 14h",
+    message: "Maria Silva agendou consulta para amanhé às 14h",
     time: "5 min atrás",
     read: false,
     priority: "high",
@@ -53,7 +53,7 @@ const mockNotifications: Notification[] = [
     id: 2,
     type: "payment",
     title: "Pagamento recebido",
-    message: "João Santos - R$ 200,00 confirmado",
+    message: "Joéo Santos - R$ 200,00 confirmado",
     time: "1 hora atrás",
     read: false,
     priority: "medium",
@@ -71,7 +71,7 @@ const mockNotifications: Notification[] = [
     id: 4,
     type: "appointment",
     title: "Consulta cancelada",
-    message: "Pedro Oliveira cancelou a consulta de amanhã",
+    message: "Pedro Oliveira cancelou a consulta de amanhé",
     time: "3 horas atrás",
     read: true,
     priority: "high",
@@ -163,7 +163,7 @@ export default function NotificationsPage() {
 
   const filteredNotifications = notifications.filter(n => {
     if (tabValue === 0) return true; // Todas
-    if (tabValue === 1) return !n.read; // Não lidas
+    if (tabValue === 1) return !n.read; // Néo lidas
     if (tabValue === 2) return n.read; // Lidas
     return true;
   });
@@ -261,7 +261,7 @@ export default function NotificationsPage() {
           }}
         >
           <Typography variant="body2" sx={{ color: "#718096", mb: 0.5 }}>
-            Não lidas
+            Néo lidas
           </Typography>
           <Typography variant="h4" sx={{ fontWeight: 700, color: "#EF4444" }}>
             {unreadCount}
@@ -339,7 +339,7 @@ export default function NotificationsPage() {
           <Tab
             label={
               <Badge badgeContent={unreadCount} color="error">
-                Não lidas
+                Néo lidas
               </Badge>
             }
           />
@@ -351,7 +351,7 @@ export default function NotificationsPage() {
             <Box sx={{ p: 6, textAlign: "center" }}>
               <NotificationsIcon sx={{ fontSize: 64, color: "#CBD5E0", mb: 2 }} />
               <Typography variant="h6" sx={{ color: "#718096" }}>
-                Nenhuma notificação encontrada
+                Nenhuma notificaçéo encontrada
               </Typography>
             </Box>
           ) : (

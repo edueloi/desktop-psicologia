@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -70,7 +70,7 @@ export default function Login() {
               PsychDesk
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Sistema de Gestão para Psicologia
+              Sistema de Gestéo para Psicologia
             </Typography>
           </Box>
 
@@ -128,7 +128,7 @@ export default function Login() {
             </Button>
 
             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center' }}>
-              Usuário padrão: admin@psychdesk.com / senha: admin123
+              Usuário padréo: admin@psychdesk.com / senha: admin123
             </Typography>
           </form>
         </CardContent>

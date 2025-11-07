@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import {
   Box,
   Typography,
@@ -54,9 +54,9 @@ const mockResults: SearchResult[] = [
   {
     id: 2,
     type: "appointment",
-    title: "Consulta com João Santos",
-    subtitle: "Sessão de terapia individual",
-    details: "Duração: 50 minutos",
+    title: "Consulta com Joéo Santos",
+    subtitle: "Sesséo de terapia individual",
+    details: "Duraçéo: 50 minutos",
     date: "16/01/2025 às 14:00",
     status: "Confirmada",
   },
@@ -64,7 +64,7 @@ const mockResults: SearchResult[] = [
     id: 3,
     type: "payment",
     title: "Pagamento recebido",
-    subtitle: "Ana Costa - Sessão 10/01",
+    subtitle: "Ana Costa - Sesséo 10/01",
     details: "Forma de pagamento: PIX",
     date: "10/01/2025",
     status: "R$ 200,00",
@@ -72,8 +72,8 @@ const mockResults: SearchResult[] = [
   {
     id: 4,
     type: "note",
-    title: "Anotação: Pedro Oliveira",
-    subtitle: "Evolução clínica",
+    title: "Anotaçéo: Pedro Oliveira",
+    subtitle: "Evoluçéo clínica",
     details: "Paciente apresentou melhora significativa no quadro de ansiedade...",
     date: "12/01/2025",
   },
@@ -120,7 +120,7 @@ const getTypeLabel = (type: string) => {
     patient: "Paciente",
     appointment: "Consulta",
     payment: "Pagamento",
-    note: "Anotação",
+    note: "Anotaçéo",
   };
   return labels[type as keyof typeof labels] || type;
 };

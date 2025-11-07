@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+﻿import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -24,23 +24,23 @@ const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#0BA5A5", // teal calmo (clínico)
-      light: "#4ED6D1",
-      dark: "#098489",
+      main: "#052c65", // Azul escuro sidebar
+      light: "#3B82F6",
+      dark: "#041d45",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#1F2937", // slate/graphite discreto
-      light: "#2B394A",
-      dark: "#111827",
+      main: "#60A5FA", // Azul claro para detalhes
+      light: "#93C5FD",
+      dark: "#3B82F6",
       contrastText: "#ffffff",
     },
     background: {
-      default: "#F7FAFC",
+      default: "#F8FAFC",
       paper: "#FFFFFF",
     },
     text: {
-      primary: "#1F2937",
+      primary: "#1E293B",
       secondary: "#64748B",
     },
     divider: "rgba(15, 23, 42, 0.08)",

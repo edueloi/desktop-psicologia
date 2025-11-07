@@ -72,8 +72,8 @@ export default function Dashboard() {
       const response = await api.get('/dashboard/stats');
       setStats(response.data);
     } catch (error) {
-      console.error('Erro ao carregar estatÃ­sticas:', error);
-      // Mock data para demonstraÃ§Ã£o
+      console.error('Erro ao carregar estatísticas:', error);
+      // Mock data para demonstraçéo
       setStats({
         totalPatients: 47,
         sessionsToday: 5,
@@ -91,10 +91,10 @@ export default function Dashboard() {
   const loadRecentActivities = () => {
     // Mock data
     const activities: RecentActivity[] = [
-      { id: '1', type: 'appointment', title: 'Consulta com Maria Silva', subtitle: 'Agendada para hoje Ã s 14:00', time: '2h', color: '#2BC7D4' },
-      { id: '2', type: 'patient', title: 'Novo paciente cadastrado', subtitle: 'JoÃ£o Santos', time: '3h', color: '#10B981' },
+      { id: '1', type: 'appointment', title: 'Consulta com Maria Silva', subtitle: 'Agendada para hoje é s 14:00', time: '2h', color: '#2BC7D4' },
+      { id: '2', type: 'patient', title: 'Novo paciente cadastrado', subtitle: 'Joéo Santos', time: '3h', color: '#10B981' },
       { id: '3', type: 'payment', title: 'Pagamento recebido', subtitle: 'R$ 200,00 - Ana Costa', time: '5h', color: '#F59E0B' },
-      { id: '4', type: 'appointment', title: 'Consulta concluÃ­da', subtitle: 'Pedro Oliveira', time: '1d', color: '#8B5CF6' },
+      { id: '4', type: 'appointment', title: 'Consulta conclué­da', subtitle: 'Pedro Oliveira', time: '1d', color: '#8B5CF6' },
     ];
     setRecentActivities(activities);
   };
@@ -109,7 +109,7 @@ export default function Dashboard() {
       trend: 'up',
     },
     {
-      title: 'SessÃµes Hoje',
+      title: 'Sesséµes Hoje',
       value: stats.sessionsToday || 0,
       icon: <CalendarToday sx={{ fontSize: 40 }} />,
       color: '#10B981',
@@ -125,7 +125,7 @@ export default function Dashboard() {
       trend: 'up',
     },
     {
-      title: 'SessÃµes ConcluÃ­das',
+      title: 'Sesséµes Conclué­das',
       value: stats.completedSessions || 0,
       icon: <CheckCircle sx={{ fontSize: 40 }} />,
       color: '#8B5CF6',
@@ -133,7 +133,7 @@ export default function Dashboard() {
       trend: 'up',
     },
     {
-      title: 'Faltas no MÃªs',
+      title: 'Faltas no Méªs',
       value: stats.missedAppointments || 0,
       icon: <EventBusy sx={{ fontSize: 40 }} />,
       color: '#EF4444',
@@ -141,7 +141,7 @@ export default function Dashboard() {
       trend: 'down',
     },
     {
-      title: 'AniversÃ¡rios',
+      title: 'Aniversé¡rios',
       value: stats.upcomingBirthdays || 0,
       icon: <Cake sx={{ fontSize: 40 }} />,
       color: '#EC4899',
@@ -158,7 +158,7 @@ export default function Dashboard() {
           Dashboard
         </Typography>
         <Typography variant="body1" sx={{ color: '#8A92A0' }}>
-          Bem-vindo de volta! Aqui estÃ¡ um resumo das suas atividades.
+          Bem-vindo de volta! Aqui esté¡ um resumo das suas atividades.
         </Typography>
       </Box>
 
@@ -231,7 +231,7 @@ export default function Dashboard() {
       </Grid>
 
       <Grid container spacing={3}>
-        {/* Progresso do MÃªs */}
+        {/* Progresso do Méªs */}
         <Grid item xs={12} md={8}>
           <Paper
             sx={{
@@ -243,7 +243,7 @@ export default function Dashboard() {
           >
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
               <Typography variant="h6" sx={{ color: '#1A202C', fontWeight: 600 }}>
-                Progresso do MÃªs
+                Progresso do Méªs
               </Typography>
               <IconButton size="small">
                 <MoreVert sx={{ color: '#8A92A0' }} />
@@ -251,11 +251,11 @@ export default function Dashboard() {
             </Box>
 
             <Stack spacing={3}>
-              {/* Meta de SessÃµes */}
+              {/* Meta de Sesséµes */}
               <Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                   <Typography variant="body2" sx={{ color: '#1A202C', fontWeight: 600 }}>
-                    Meta de SessÃµes
+                    Meta de Sesséµes
                   </Typography>
                   <Typography variant="body2" sx={{ color: '#2BC7D4', fontWeight: 600 }}>
                     38/50
@@ -301,11 +301,11 @@ export default function Dashboard() {
                 />
               </Box>
 
-              {/* Taxa de PresenÃ§a */}
+              {/* Taxa de Presença */}
               <Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                   <Typography variant="body2" sx={{ color: '#1A202C', fontWeight: 600 }}>
-                    Taxa de PresenÃ§a
+                    Taxa de Presença
                   </Typography>
                   <Typography variant="body2" sx={{ color: '#F59E0B', fontWeight: 600 }}>
                     95%
@@ -340,7 +340,7 @@ export default function Dashboard() {
             }}
           >
             <Typography variant="h6" sx={{ color: '#1A202C', fontWeight: 600, mb: 3 }}>
-              AÃ§Ãµes RÃ¡pidas
+              Açéµes Ré¡pidas
             </Typography>
             <Stack spacing={2}>
               <Card
@@ -415,10 +415,10 @@ export default function Dashboard() {
                   </Avatar>
                   <Box>
                     <Typography variant="body2" sx={{ color: '#1A202C', fontWeight: 600 }}>
-                      Ver RelatÃ³rios
+                      Ver Relaté³rios
                     </Typography>
                     <Typography variant="caption" sx={{ color: '#8A92A0' }}>
-                      AnÃ¡lises e estatÃ­sticas
+                      Ané¡lises e estaté­sticas
                     </Typography>
                   </Box>
                 </CardContent>

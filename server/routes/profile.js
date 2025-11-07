@@ -1,0 +1,163 @@
+const express = require('express');
+const router = express.Router();
+const knex = require('knex');
+const knexConfig = require('../../knexfile');
+
+const env = process.env.NODE_ENV || 'development';
+const db = knex(knexConfig[env]);
+
+// GET /api/profile - Buscar perfil do usuário
+router.get('/', async (req, res) => {
+  try {
+    // Por enquanto, retornamos um perfil padrão
+    // TODO: Implementar autenticação e pegar o ID do usuário logado
+    const userId = 1;
+
+    const user = await db('users')
+      .where({ id: userId })
+      .select('id', 'name', 'email', 'role', 'phone', 'bio', 'avatar', 'specialty', 'crp', 'address', 'city', 'state', 'created_at')
+      .first();
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Erro ao buscar perfil:', error);
+    res.status(500).json({ message: 'Erro ao buscar perfil' });
+  }
+});
+
+// PUT /api/profile - Atualizar perfil
+router.put('/', async (req, res) => {
+  try {
+    const userId = 1; // TODO: Pegar do token de autenticação
+    const {
+      name,
+      email,
+      phone,
+      bio,
+      specialty,
+      crp,
+      address,
+      city,
+      state
+    } = req.body;
+
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (phone) updateData.phone = phone;
+    if (bio) updateData.bio = bio;
+    if (specialty) updateData.specialty = specialty;
+    if (crp) updateData.crp = crp;
+    if (address) updateData.address = address;
+    if (city) updateData.city = city;
+    if (state) updateData.state = state;
+
+    await db('users')
+      .where({ id: userId })
+      .update(updateData);
+
+    const updated = await db('users')
+      .where({ id: userId })
+      .select('id', 'name', 'email', 'role', 'phone', 'bio', 'avatar', 'specialty', 'crp', 'address', 'city', 'state')
+      .first();
+
+    res.json(updated);
+  } catch (error) {
+    console.error('Erro ao atualizar perfil:', error);
+    res.status(500).json({ message: 'Erro ao atualizar perfil' });
+  }
+});
+
+// PUT /api/profile/password - Alterar senha
+router.put('/password', async (req, res) => {
+  try {
+    const userId = 1; // TODO: Pegar do token
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: 'Senha atual e nova senha são obrigatórias' });
+    }
+
+    // Buscar usuário
+    const user = await db('users')
+      .where({ id: userId })
+      .select('id', 'password')
+      .first();
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    // Verificar senha atual
+    const bcrypt = require('bcrypt');
+    const isValid = await bcrypt.compare(currentPassword, user.password);
+
+    if (!isValid) {
+      return res.status(401).json({ message: 'Senha atual incorreta' });
+    }
+
+    // Hash da nova senha
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Atualizar senha
+    await db('users')
+      .where({ id: userId })
+      .update({ password: hashedPassword });
+
+    res.json({ message: 'Senha alterada com sucesso' });
+  } catch (error) {
+    console.error('Erro ao alterar senha:', error);
+    res.status(500).json({ message: 'Erro ao alterar senha' });
+  }
+});
+
+// GET /api/profile/statistics - Estatísticas do perfil
+router.get('/statistics', async (req, res) => {
+  try {
+    const userId = 1; // TODO: Pegar do token
+
+    // Total de pacientes
+    const totalPatients = await db('patients')
+      .count('* as count')
+      .first();
+
+    // Total de consultas
+    const totalAppointments = await db('appointments')
+      .count('* as count')
+      .first();
+
+    // Consultas este mês
+    const now = new Date();
+    const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    const thisMonthAppointments = await db('appointments')
+      .where('date', '>=', firstDay.toISOString())
+      .count('* as count')
+      .first();
+
+    // Taxa de comparecimento
+    const completedAppointments = await db('appointments')
+      .where('status', 'completed')
+      .count('* as count')
+      .first();
+
+    const attendanceRate = totalAppointments.count > 0
+      ? ((completedAppointments.count / totalAppointments.count) * 100).toFixed(1)
+      : 0;
+
+    res.json({
+      totalPatients: totalPatients.count || 0,
+      totalAppointments: totalAppointments.count || 0,
+      thisMonthAppointments: thisMonthAppointments.count || 0,
+      attendanceRate: parseFloat(attendanceRate)
+    });
+  } catch (error) {
+    console.error('Erro ao buscar estatísticas do perfil:', error);
+    res.status(500).json({ message: 'Erro ao buscar estatísticas' });
+  }
+});
+
+module.exports = router;

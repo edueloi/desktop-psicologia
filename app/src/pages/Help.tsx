@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import {
   Box,
   Typography,
@@ -38,11 +38,11 @@ const faqs = [
     questions: [
       {
         q: 'Como faço para cadastrar um novo paciente?',
-        a: 'Vá até a página "Pacientes" e clique no botão "+ Novo Paciente". Preencha as informações básicas como nome, CPF, telefone e email. Você pode adicionar mais informações posteriormente.',
+        a: 'Vá até a página "Pacientes" e clique no botéo "+ Novo Paciente". Preencha as informações básicas como nome, CPF, telefone e email. Você pode adicionar mais informações posteriormente.',
       },
       {
         q: 'Como agendar uma consulta?',
-        a: 'Acesse a página "Agenda" e clique em um horário disponível no calendário. Selecione o paciente, defina a duração (padrão 50min) e confirme o agendamento.',
+        a: 'Acesse a página "Agenda" e clique em um horário disponível no calendário. Selecione o paciente, defina a duraçéo (padréo 50min) e confirme o agendamento.',
       },
       {
         q: 'Posso cancelar ou reagendar uma consulta?',
@@ -59,7 +59,7 @@ const faqs = [
       },
       {
         q: 'Como criar um novo quadro Kanban?',
-        a: 'Na página Kanban, clique em "+ Novo Quadro", dê um nome descritivo e escolha uma cor. O sistema criará 3 colunas padrão: A Fazer, Em Progresso e Concluído.',
+        a: 'Na página Kanban, clique em "+ Novo Quadro", dê um nome descritivo e escolha uma cor. O sistema criará 3 colunas padréo: A Fazer, Em Progresso e Concluído.',
       },
       {
         q: 'Posso ter múltiplos quadros?',
@@ -80,7 +80,7 @@ const faqs = [
       },
       {
         q: 'Posso ver um resumo financeiro mensal?',
-        a: 'Sim! Na página Faturamento há cards com estatísticas do mês: total recebido, pagamentos pendentes e projeção mensal.',
+        a: 'Sim! Na página Faturamento há cards com estatísticas do mês: total recebido, pagamentos pendentes e projeçéo mensal.',
       },
     ],
   },
@@ -88,8 +88,8 @@ const faqs = [
     category: 'Segurança',
     questions: [
       {
-        q: 'Meus dados estão seguros?',
-        a: 'Sim! Todos os dados são armazenados localmente no seu computador usando SQLite. Nenhuma informação é enviada para servidores externos.',
+        q: 'Meus dados estéo seguros?',
+        a: 'Sim! Todos os dados séo armazenados localmente no seu computador usando SQLite. Nenhuma informaçéo é enviada para servidores externos.',
       },
       {
         q: 'Como faço backup dos dados?',
@@ -106,7 +106,7 @@ const faqs = [
 const resources = [
   {
     icon: <Book />,
-    title: 'Documentação Completa',
+    title: 'Documentaçéo Completa',
     description: 'Guia detalhado de todas as funcionalidades',
     color: '#3B82F6',
   },
@@ -119,7 +119,7 @@ const resources = [
   {
     icon: <Article />,
     title: 'Blog de Dicas',
-    description: 'Artigos sobre gestão de consultório',
+    description: 'Artigos sobre gestéo de consultório',
     color: '#10B981',
   },
   {

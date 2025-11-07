@@ -1,4 +1,4 @@
-// Tema customizado do sistema
+﻿// Tema customizado do sistema
 export const theme = {
   colors: {
     // Cores principais

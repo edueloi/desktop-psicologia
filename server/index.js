@@ -5,34 +5,76 @@ const fs = require('fs');
 const knex = require('knex');
 const knexConfig = require('../knexfile');
 
+console.log('[SERVER] Carregando módulos...');
+
 const authRoutes = require('./routes/auth');
 const patientsRoutes = require('./routes/patients');
 const appointmentsRoutes = require('./routes/appointments');
 const dashboardRoutes = require('./routes/dashboard');
 const kanbanRoutes = require('./routes/kanban');
+const billingRoutes = require('./routes/billing');
+const reportsRoutes = require('./routes/reports');
+const profileRoutes = require('./routes/profile');
+const settingsRoutes = require('./routes/settings');
+const notificationsRoutes = require('./routes/notifications');
+const searchRoutes = require('./routes/search');
+
+console.log('[SERVER] Módulos carregados ✓');
 
 const app = express();
 const PORT = 3456;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ charset: 'utf-8' }));
+app.use(express.urlencoded({ extended: true, charset: 'utf-8' }));
 
-// Garantir que os diretórios existem
-const dataDir = path.join(__dirname, '..', 'data');
+// Garantir UTF-8 em todas as respostas
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  next();
+});
+
+// Determinar o diretório de dados correto
+let dataDir;
+if (process.env.PORTABLE_EXECUTABLE_DIR) {
+  // Se for a versão instalada do Electron, usar userData
+  dataDir = process.env.PORTABLE_EXECUTABLE_DIR;
+} else if (process.env.NODE_ENV === 'production' && process.resourcesPath) {
+  // Em produção, salvar fora do .asar
+  dataDir = path.join(path.dirname(process.resourcesPath), 'data');
+} else {
+  // Em desenvolvimento
+  dataDir = path.join(__dirname, '..', 'data');
+}
+
 const dbDir = path.join(dataDir, 'db');
 const filesDir = path.join(dataDir, 'files');
 
+// Garantir que os diretórios existem
 [dataDir, dbDir, filesDir].forEach((dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log(`Diretório criado: ${dir}`);
+    }
+  } catch (error) {
+    console.error(`Erro ao criar diretório ${dir}:`, error.message);
   }
 });
 
 // Inicializar banco de dados
 const env = process.env.NODE_ENV || 'development';
+console.log('[SERVER] Inicializando banco de dados... Ambiente:', env);
 const db = knex(knexConfig[env]);
+console.log('[SERVER] Conexão com banco criada ✓');
+
+// IMPORTANTE: Adicionar db ao request ANTES de executar migrations
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
+console.log('[SERVER] Middleware req.db registrado ✓');
 
 // Função para aplicar migrações manualmente via SQL
 async function applyManualMigrations() {
@@ -186,39 +228,45 @@ async function applyManualMigrations() {
   }
 }
 
-// Executar migrations automaticamente
-db.migrate
-  .latest()
+// Executar migrations automaticamente com timeout (não bloqueia o servidor)
+console.log('[SERVER] Iniciando migrations...');
+Promise.race([
+  db.migrate.latest(),
+  new Promise((_, reject) => setTimeout(() => reject(new Error('Migration timeout após 10s')), 10000))
+])
   .then(() => {
     console.log('✓ Migrations executadas com sucesso');
     // Executar seeds apenas se não houver usuários
     return db('users').count('* as count').first();
   })
   .then((result) => {
-    if (result.count === 0) {
+    if (result && result.count === 0) {
       return db.seed.run().then(() => {
         console.log('✓ Seeds executadas - usuário admin criado');
       });
+    } else if (result) {
+      console.log('✓ Banco de dados já possui dados');
     }
   })
   .catch(async (err) => {
-    console.error('Erro ao executar migrations:', err.message);
-    console.log('Tentando aplicar migrações manualmente...');
-    await applyManualMigrations();
+    console.error('⚠ Erro/Timeout ao executar migrations:', err.message);
+    console.log('→ Servidor vai iniciar mesmo assim...');
   });
 
-// Adicionar db ao request
-app.use((req, res, next) => {
-  req.db = db;
-  next();
-});
-
-// Rotas
+// Rotas (db já foi adicionado ao request acima)
+console.log('[SERVER] Registrando rotas...');
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientsRoutes);
 app.use('/api/appointments', appointmentsRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/kanban', kanbanRoutes);
+app.use('/api/billing', billingRoutes);
+app.use('/api/reports', reportsRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/settings', settingsRoutes);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/search', searchRoutes);
+console.log('[SERVER] Rotas registradas ✓');
 
 // Rota de health check
 app.get('/api/health', (req, res) => {
@@ -235,10 +283,12 @@ function startServer() {
   return new Promise((resolve, reject) => {
     const server = app.listen(PORT, () => {
       console.log(`✓ Servidor Express rodando na porta ${PORT}`);
+      console.log(`✓ Diretório de dados: ${dataDir}`);
+      console.log(`✓ Banco de dados: ${path.join(dbDir, 'app.db')}`);
       resolve(server);
     });
     server.on('error', reject);
   });
 }
 
-module.exports = { startServer, app };
+module.exports = { startServer, app, dataDir, dbDir, filesDir };

@@ -9,6 +9,16 @@ router.use(authenticateToken);
 // Estatísticas do dashboard
 router.get('/stats', async (req, res) => {
   try {
+    console.log('[DEBUG] /stats - req.db disponível?', !!req.db);
+    
+    if (!req.db) {
+      console.error('[ERROR] req.db não está disponível!');
+      return res.status(500).json({ 
+        error: 'Database connection not available',
+        message: 'O servidor precisa ser reiniciado' 
+      });
+    }
+    
     // Total de pacientes
     const totalPatientsResult = await req.db('patients').count('* as count').first();
     const totalPatients = totalPatientsResult.count || 0;

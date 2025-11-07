@@ -1,4 +1,4 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 
 const api = axios.create({
   baseURL: 'http://localhost:3456/api',
@@ -16,7 +16,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Interceptor para tratar erros de autenticação
+// Interceptor para tratar erros de autenticaçéo
 api.interceptors.response.use(
   (response) => response,
   (error) => {

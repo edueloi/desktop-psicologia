@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -412,7 +412,7 @@ function Kanban() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Descrição"
+                label="Descriçéo"
                 multiline
                 rows={3}
                 value={cardDescription}

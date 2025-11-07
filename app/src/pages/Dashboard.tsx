@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import {
   Box,
   Grid,
@@ -160,7 +160,7 @@ export default function Dashboard() {
                 color: 'text.secondary',
               }}
             >
-              <Typography>Nenhuma sessão agendada</Typography>
+              <Typography>Nenhuma sesséo agendada</Typography>
             </Box>
           </Paper>
         </Grid>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import {
   Box,
   Paper,
@@ -302,7 +302,7 @@ function AppointmentTable({
           <TableRow>
             <TableCell>Data/Hora</TableCell>
             <TableCell>Paciente</TableCell>
-            <TableCell>Tipo de Sessão</TableCell>
+            <TableCell>Tipo de Sesséo</TableCell>
             <TableCell>Valor</TableCell>
             <TableCell>Método</TableCell>
             <TableCell>Status</TableCell>

@@ -100,7 +100,7 @@ export default function Layout() {
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
           background: "#FFFFFF",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)",
           borderBottom: "1px solid #E2E8F0",
         }}
       >
@@ -109,9 +109,9 @@ export default function Layout() {
             <IconButton
               onClick={() => setSidebarOpen(!sidebarOpen)}
               sx={{ 
-                color: "#16263F",
+                color: "#052c65",
                 "&:hover": { 
-                  background: "rgba(43, 199, 212, 0.1)",
+                  background: "rgba(59, 130, 246, 0.1)",
                   transform: "rotate(90deg)",
                 },
                 transition: "all 0.3s ease",
@@ -119,14 +119,14 @@ export default function Layout() {
             >
               {sidebarOpen ? <ChevronLeft /> : <MenuIcon />}
             </IconButton>
-            <Psychology sx={{ fontSize: 32, color: "#2BC7D4" }} />
+            <Psychology sx={{ fontSize: 32, color: "#3B82F6" }} />
             <Typography 
               variant="h5" 
               noWrap 
               component="div" 
               sx={{ 
                 fontWeight: 700,
-                color: "#16263F",
+                color: "#052c65",
               }}
             >
               PsychDesk Pro
@@ -135,9 +135,10 @@ export default function Layout() {
               label="v2.0" 
               size="small" 
               sx={{ 
-                background: "#2BC7D4", 
+                background: "linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%)", 
                 color: "#FFFFFF",
                 fontWeight: 600,
+                fontSize: "0.75rem",
               }} 
             />
           </Box>
@@ -150,8 +151,8 @@ export default function Layout() {
                 sx={{ 
                   color: "#4A5568",
                   "&:hover": { 
-                    background: "rgba(43, 199, 212, 0.1)",
-                    color: "#2BC7D4",
+                    background: "rgba(59, 130, 246, 0.1)",
+                    color: "#3B82F6",
                   },
                 }}
               >
@@ -166,8 +167,8 @@ export default function Layout() {
                 sx={{ 
                   color: "#4A5568",
                   "&:hover": { 
-                    background: "rgba(43, 199, 212, 0.1)",
-                    color: "#2BC7D4",
+                    background: "rgba(59, 130, 246, 0.1)",
+                    color: "#3B82F6",
                   },
                 }}
               >
@@ -201,8 +202,8 @@ export default function Layout() {
                 <MenuItem
                   key={notification.id}
                   sx={{
-                    background: notification.unread ? "rgba(43, 199, 212, 0.05)" : "transparent",
-                    "&:hover": { background: "rgba(43, 199, 212, 0.1)" },
+                    background: notification.unread ? "rgba(59, 130, 246, 0.08)" : "transparent",
+                    "&:hover": { background: "rgba(59, 130, 246, 0.12)" },
                     borderBottom: "1px solid #E2E8F0",
                   }}
                 >
@@ -224,8 +225,8 @@ export default function Layout() {
                 sx={{ 
                   color: "#4A5568",
                   "&:hover": { 
-                    background: "rgba(43, 199, 212, 0.1)",
-                    color: "#2BC7D4",
+                    background: "rgba(59, 130, 246, 0.1)",
+                    color: "#3B82F6",
                   },
                 }}
               >
@@ -250,11 +251,11 @@ export default function Layout() {
                   sx={{
                     width: 40,
                     height: 40,
-                    background: "linear-gradient(135deg, #2BC7D4 0%, #16263F 100%)",
-                    border: "2px solid #2BC7D4",
+                    background: "linear-gradient(135deg, #3B82F6 0%, #052c65 100%)",
+                    border: "2px solid #60A5FA",
                     fontWeight: 600,
                     "&:hover": {
-                      boxShadow: "0 0 20px rgba(43, 199, 212, 0.3)",
+                      boxShadow: "0 0 20px rgba(59, 130, 246, 0.4)",
                     },
                     transition: "all 0.3s ease",
                   }}
@@ -283,10 +284,10 @@ export default function Layout() {
                   handleClose();
                   navigate("/profile");
                 }}
-                sx={{ "&:hover": { background: "rgba(43, 199, 212, 0.1)" } }}
+                sx={{ "&:hover": { background: "rgba(59, 130, 246, 0.1)" } }}
               >
                 <ListItemIcon>
-                  <AccountCircle fontSize="small" sx={{ color: "#2BC7D4" }} />
+                  <AccountCircle fontSize="small" sx={{ color: "#3B82F6" }} />
                 </ListItemIcon>
                 <ListItemText sx={{ color: "#1A202C" }}>Meu Perfil</ListItemText>
               </MenuItem>
@@ -295,10 +296,10 @@ export default function Layout() {
                   handleClose();
                   navigate("/settings");
                 }}
-                sx={{ "&:hover": { background: "rgba(43, 199, 212, 0.1)" } }}
+                sx={{ "&:hover": { background: "rgba(59, 130, 246, 0.1)" } }}
               >
                 <ListItemIcon>
-                  <SettingsIcon fontSize="small" sx={{ color: "#2BC7D4" }} />
+                  <SettingsIcon fontSize="small" sx={{ color: "#3B82F6" }} />
                 </ListItemIcon>
                 <ListItemText sx={{ color: "#1A202C" }}>Configurações</ListItemText>
               </MenuItem>
@@ -327,8 +328,8 @@ export default function Layout() {
           "& .MuiDrawer-paper": {
             width: sidebarOpen ? drawerWidth : 72,
             boxSizing: "border-box",
-            background: "#FFFFFF",
-            borderRight: "1px solid #E2E8F0",
+            background: "linear-gradient(180deg, #052c65 0%, #041d45 100%)",
+            borderRight: "none",
             transition: "width 0.3s ease",
             overflowX: "hidden",
           },
@@ -347,11 +348,11 @@ export default function Layout() {
                       borderRadius: 2,
                       mb: 0.5,
                       background: isActive
-                        ? "rgba(43, 199, 212, 0.1)"
+                        ? "rgba(59, 130, 246, 0.2)"
                         : "transparent",
-                      borderLeft: isActive ? `4px solid ${item.color}` : "4px solid transparent",
+                      borderLeft: isActive ? `4px solid #60A5FA` : "4px solid transparent",
                       "&:hover": {
-                        background: "rgba(43, 199, 212, 0.08)",
+                        background: "rgba(59, 130, 246, 0.15)",
                         transform: "translateX(4px)",
                       },
                       transition: "all 0.3s ease",
@@ -364,13 +365,13 @@ export default function Layout() {
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        background: `linear-gradient(90deg, ${item.color}15 0%, transparent 100%)`,
+                        background: "linear-gradient(90deg, rgba(96, 165, 250, 0.2) 0%, transparent 100%)",
                       } : {},
                     }}
                   >
                     <ListItemIcon
                       sx={{
-                        color: isActive ? item.color : "#718096",
+                        color: isActive ? "#60A5FA" : "#94A3B8",
                         minWidth: 40,
                         transition: "all 0.3s ease",
                       }}
@@ -382,7 +383,7 @@ export default function Layout() {
                         primary={item.text}
                         sx={{
                           "& .MuiListItemText-primary": {
-                            color: isActive ? "#1A202C" : "#4A5568",
+                            color: isActive ? "#FFFFFF" : "#CBD5E1",
                             fontWeight: isActive ? 600 : 400,
                           },
                         }}
@@ -396,7 +397,7 @@ export default function Layout() {
 
           <Box sx={{ flexGrow: 1 }} />
 
-          <Divider sx={{ borderColor: "#E2E8F0", mx: 2, mb: 2 }} />
+          <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)", mx: 2, mb: 2 }} />
 
           <List sx={{ px: 1, pb: 2 }}>
             {bottomMenuItems.map((item) => {
@@ -407,16 +408,16 @@ export default function Layout() {
                     onClick={() => navigate(item.path)}
                     sx={{
                       borderRadius: 2,
-                      background: isActive ? "rgba(43, 199, 212, 0.1)" : "transparent",
+                      background: isActive ? "rgba(59, 130, 246, 0.2)" : "transparent",
                       "&:hover": {
-                        background: "rgba(43, 199, 212, 0.08)",
+                        background: "rgba(59, 130, 246, 0.15)",
                       },
                       transition: "all 0.3s ease",
                     }}
                   >
                     <ListItemIcon
                       sx={{
-                        color: isActive ? "#2BC7D4" : "#718096",
+                        color: isActive ? "#60A5FA" : "#94A3B8",
                         minWidth: 40,
                       }}
                     >
@@ -427,7 +428,7 @@ export default function Layout() {
                         primary={item.text}
                         sx={{
                           "& .MuiListItemText-primary": {
-                            color: isActive ? "#1A202C" : "#4A5568",
+                            color: isActive ? "#FFFFFF" : "#CBD5E1",
                           },
                         }}
                       />

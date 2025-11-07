@@ -113,11 +113,11 @@ function KanbanBoards() {
 
   const loadBoards = async () => {
     try {
-      // Simulando dados - vocÃª precisarÃ¡ criar as rotas no backend
+      // Simulando dados - vocéª precisaré¡ criar as rotas no backend
       const mockBoards: Board[] = [
-        { id: '1', name: 'Atendimentos', description: 'GestÃ£o de pacientes', color: '#2BC7D4', favorite: true },
+        { id: '1', name: 'Atendimentos', description: 'Gestéo de pacientes', color: '#2BC7D4', favorite: true },
         { id: '2', name: 'Projetos', description: 'Projetos de pesquisa', color: '#8B5CF6', favorite: false },
-        { id: '3', name: 'Tarefas Pessoais', description: 'OrganizaÃ§Ã£o pessoal', color: '#F59E0B', favorite: false },
+        { id: '3', name: 'Tarefas Pessoais', description: 'Organizaçéo pessoal', color: '#F59E0B', favorite: false },
       ];
       setBoards(mockBoards);
       if (mockBoards.length > 0 && !currentBoard) {
@@ -139,17 +139,17 @@ function KanbanBoards() {
       setCards(cardsRes.data);
     } catch (error) {
       console.error('Erro ao carregar dados do board:', error);
-      // Mock data para demonstraÃ§Ã£o
+      // Mock data para demonstraçéo
       const mockColumns: Column[] = [
         { id: '1', board_id: boardId, title: 'A Fazer', color: '#3B82F6', position: 0 },
         { id: '2', board_id: boardId, title: 'Em Progresso', color: '#F59E0B', position: 1 },
-        { id: '3', board_id: boardId, title: 'ConcluÃ­do', color: '#10B981', position: 2 },
+        { id: '3', board_id: boardId, title: 'Conclué­do', color: '#10B981', position: 2 },
       ];
       const mockCards: Card[] = [
-        { id: '1', column_id: '1', title: 'Revisar prontuÃ¡rios', description: 'Revisar prontuÃ¡rios da semana', priority: 'alta', position: 0 },
-        { id: '2', column_id: '1', title: 'Agendar supervisÃ£o', description: 'Marcar supervisÃ£o mensal', priority: 'media', position: 1 },
+        { id: '1', column_id: '1', title: 'Revisar prontué¡rios', description: 'Revisar prontué¡rios da semana', priority: 'alta', position: 0 },
+        { id: '2', column_id: '1', title: 'Agendar superviséo', description: 'Marcar superviséo mensal', priority: 'media', position: 1 },
         { id: '3', column_id: '2', title: 'Estudar novo protocolo', description: 'Protocolo TCC', priority: 'media', position: 0 },
-        { id: '4', column_id: '3', title: 'RelatÃ³rio mensal', description: 'RelatÃ³rio completo', priority: 'baixa', position: 0 },
+        { id: '4', column_id: '3', title: 'Relaté³rio mensal', description: 'Relaté³rio completo', priority: 'baixa', position: 0 },
       ];
       setColumns(mockColumns);
       setCards(mockCards);
@@ -371,9 +371,9 @@ function KanbanBoards() {
             startIcon={<AddIcon />}
             onClick={() => openBoardDialog()}
             sx={{
-              background: 'linear-gradient(135deg, #2BC7D4 0%, #FFFFFF 100%)',
+              background: '#3B82F6',
               '&:hover': {
-                background: 'linear-gradient(135deg, #1FA8B4 0%, #F5F7FA 100%)',
+                background: '#2563EB',
               },
             }}
           >
@@ -666,7 +666,7 @@ function KanbanBoards() {
               sx={{ input: { color: '#1A202C' } }}
             />
             <TextField
-              label="DescriÃ§Ã£o"
+              label="Descriçéo"
               fullWidth
               multiline
               rows={2}
@@ -707,7 +707,7 @@ function KanbanBoards() {
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
             <TextField
-              label="TÃ­tulo"
+              label="Té­tulo"
               fullWidth
               value={columnTitle}
               onChange={(e) => setColumnTitle(e.target.value)}
@@ -746,14 +746,14 @@ function KanbanBoards() {
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
             <TextField
-              label="TÃ­tulo"
+              label="Té­tulo"
               fullWidth
               value={cardTitle}
               onChange={(e) => setCardTitle(e.target.value)}
               sx={{ input: { color: '#1A202C' } }}
             />
             <TextField
-              label="DescriÃ§Ã£o"
+              label="Descriçéo"
               fullWidth
               multiline
               rows={3}
@@ -770,7 +770,7 @@ function KanbanBoards() {
               sx={{ input: { color: '#1A202C' } }}
             >
               <MenuItem value="baixa">Baixa</MenuItem>
-              <MenuItem value="media">MÃ©dia</MenuItem>
+              <MenuItem value="media">Mé©dia</MenuItem>
               <MenuItem value="alta">Alta</MenuItem>
             </TextField>
             <TextField

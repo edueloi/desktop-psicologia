@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -45,16 +45,16 @@ const DURACOES = [
 
 const TIPOS_SESSAO = [
   'Psicoterapia',
-  'Avaliação Psicológica',
-  'Orientação',
+  'Avaliaçéo Psicológica',
+  'Orientaçéo',
   'Primeira Consulta',
   'Retorno',
-  'Supervisão',
+  'Superviséo',
   'Outro',
 ];
 
 const TIPOS_EVENTO = [
-  'Reunião',
+  'Reuniéo',
   'Compromisso Pessoal',
   'Férias',
   'Bloqueio de Horário',
@@ -64,8 +64,8 @@ const TIPOS_EVENTO = [
 const METODOS_PAGAMENTO = [
   'Dinheiro',
   'PIX',
-  'Cartão de Débito',
-  'Cartão de Crédito',
+  'Cartéo de Débito',
+  'Cartéo de Crédito',
   'Transferência',
 ];
 
@@ -109,7 +109,7 @@ function AppointmentsCalendar() {
   
   // Evento
   const [tituloEvento, setTituloEvento] = useState('');
-  const [tipoEvento, setTipoEvento] = useState('Reunião');
+  const [tipoEvento, setTipoEvento] = useState('Reuniéo');
   const [corEvento, setCorEvento] = useState('#1976d2');
 
   useEffect(() => {
@@ -155,7 +155,7 @@ function AppointmentsCalendar() {
   const handleEventClick = (info: any) => {
     const event = info.event.extendedProps;
     console.log('Evento clicado:', event);
-    // TODO: Abrir modal de edição
+    // TODO: Abrir modal de ediçéo
   };
 
   const handleNovoEvento = () => {
@@ -192,7 +192,7 @@ function AppointmentsCalendar() {
     setFrequencia('semanal');
     setDataTermino('');
     setTituloEvento('');
-    setTipoEvento('Reunião');
+    setTipoEvento('Reuniéo');
     setCorEvento('#1976d2');
   };
 
@@ -364,7 +364,7 @@ function AppointmentsCalendar() {
             <Grid item xs={3}>
               <TextField
                 select
-                label="Duração"
+                label="Duraçéo"
                 value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
                 fullWidth
@@ -406,7 +406,7 @@ function AppointmentsCalendar() {
                 <Grid item xs={6}>
                   <TextField
                     select
-                    label="Tipo de Sessão"
+                    label="Tipo de Sesséo"
                     value={tipoSessao}
                     onChange={(e) => setTipoSessao(e.target.value)}
                     fullWidth

@@ -61,13 +61,13 @@ export default function Profile() {
     email: 'eduardo.silva@email.com',
     phone: '(11) 98765-4321',
     crp: 'CRP 06/123456',
-    specialization: 'Psicologia ClÃ­nica',
+    specialization: 'Psicologia Clínica',
     experience: '5 anos',
-    address: 'SÃ£o Paulo, SP',
-    bio: 'PsicÃ³logo clÃ­nico especializado em Terapia Cognitivo-Comportamental. Atuo principalmente com transtornos de ansiedade e depressÃ£o.',
+    address: 'Séo Paulo, SP',
+    bio: 'Psicólogo clínico especializado em Terapia Cognitivo-Comportamental. Atuo principalmente com transtornos de ansiedade e depresséo.',
   });
 
-  // ConfiguraÃ§Ãµes
+  // Configurações
   const [settings, setSettings] = useState({
     emailNotifications: true,
     pushNotifications: true,
@@ -124,7 +124,7 @@ export default function Profile() {
             right: 0,
             width: '50%',
             height: '100%',
-            background: 'linear-gradient(135deg, rgba(43, 199, 212, 0.1) 0%, transparent 100%)',
+            background: 'rgba(59, 130, 246, 0.08)',
             borderRadius: '50% 0 0 50%',
           }}
         />
@@ -137,9 +137,9 @@ export default function Profile() {
                   width: 120,
                   height: 120,
                   fontSize: '3rem',
-                  background: 'linear-gradient(135deg, #2BC7D4 0%, #FFFFFF 100%)',
-                  border: '4px solid #2BC7D4',
-                  boxShadow: '0 8px 24px rgba(43, 199, 212, 0.4)',
+                  background: '#3B82F6',
+                  border: '4px solid #60A5FA',
+                  boxShadow: '0 8px 24px rgba(59, 130, 246, 0.4)',
                 }}
               >
                 {profileData.name.charAt(0)}
@@ -174,7 +174,7 @@ export default function Profile() {
               />
               <Chip
                 icon={<WorkIcon />}
-                label={`${profileData.experience} de experiÃªncia`}
+                label={`${profileData.experience} de experiéªncia`}
                 sx={{ background: '#FFFFFF', color: '#10B981', border: '1px solid #10B981' }}
               />
               <Chip
@@ -191,9 +191,9 @@ export default function Profile() {
                 startIcon={<EditIcon />}
                 onClick={() => setEditing(true)}
                 sx={{
-                  background: 'linear-gradient(135deg, #2BC7D4 0%, #FFFFFF 100%)',
+                  background: '#3B82F6',
                   '&:hover': {
-                    background: 'linear-gradient(135deg, #1FA8B4 0%, #F5F7FA 100%)',
+                    background: '#2563EB',
                   },
                 }}
               >
@@ -242,19 +242,19 @@ export default function Profile() {
             },
           }}
         >
-          <Tab label="InformaÃ§Ãµes Pessoais" icon={<BadgeIcon />} iconPosition="start" />
-          <Tab label="SeguranÃ§a" icon={<SecurityIcon />} iconPosition="start" />
-          <Tab label="NotificaÃ§Ãµes" icon={<NotificationsIcon />} iconPosition="start" />
-          <Tab label="PreferÃªncias" icon={<PaletteIcon />} iconPosition="start" />
+          <Tab label="Informaçéµes Pessoais" icon={<BadgeIcon />} iconPosition="start" />
+          <Tab label="Segurança" icon={<SecurityIcon />} iconPosition="start" />
+          <Tab label="Notificaçéµes" icon={<NotificationsIcon />} iconPosition="start" />
+          <Tab label="Preferéªncias" icon={<PaletteIcon />} iconPosition="start" />
         </Tabs>
 
-        {/* Tab 0 - InformaÃ§Ãµes Pessoais */}
+        {/* Tab 0 - Informaçéµes Pessoais */}
         <TabPanel value={tabValue} index={0}>
           <Box sx={{ p: 3 }}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h6" sx={{ color: '#1A202C', mb: 2 }}>
-                  Dados BÃ¡sicos
+                  Dados Bé¡sicos
                 </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -312,7 +312,7 @@ export default function Profile() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  label="EspecializaÃ§Ã£o"
+                  label="Especializaçéo"
                   fullWidth
                   value={profileData.specialization}
                   onChange={(e) => setProfileData({ ...profileData, specialization: e.target.value })}
@@ -325,7 +325,7 @@ export default function Profile() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  label="Tempo de ExperiÃªncia"
+                  label="Tempo de Experiéªncia"
                   fullWidth
                   value={profileData.experience}
                   onChange={(e) => setProfileData({ ...profileData, experience: e.target.value })}
@@ -338,7 +338,7 @@ export default function Profile() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="EndereÃ§o"
+                  label="Endereço"
                   fullWidth
                   value={profileData.address}
                   onChange={(e) => setProfileData({ ...profileData, address: e.target.value })}
@@ -365,7 +365,7 @@ export default function Profile() {
           </Box>
         </TabPanel>
 
-        {/* Tab 1 - SeguranÃ§a */}
+        {/* Tab 1 - Segurança */}
         <TabPanel value={tabValue} index={1}>
           <Box sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ color: '#1A202C', mb: 3 }}>
@@ -413,12 +413,12 @@ export default function Profile() {
             <Divider sx={{ my: 4, borderColor: '#E2E8F0' }} />
 
             <Typography variant="h6" sx={{ color: '#1A202C', mb: 3 }}>
-              AutenticaÃ§Ã£o em Dois Fatores
+              Autenticaçéo em Dois Fatores
             </Typography>
             <Card sx={{ background: '#FFFFFF', border: '1px solid #E2E8F0' }}>
               <CardContent>
                 <Typography variant="body1" sx={{ color: '#1A202C', mb: 2 }}>
-                  Adicione uma camada extra de seguranÃ§a Ã  sua conta.
+                  Adicione uma camada extra de segurança é  sua conta.
                 </Typography>
                 <Button variant="outlined" sx={{ borderColor: '#2BC7D4', color: '#2BC7D4' }}>
                   Configurar 2FA
@@ -428,11 +428,11 @@ export default function Profile() {
           </Box>
         </TabPanel>
 
-        {/* Tab 2 - NotificaÃ§Ãµes */}
+        {/* Tab 2 - Notificaçéµes */}
         <TabPanel value={tabValue} index={2}>
           <Box sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ color: '#1A202C', mb: 3 }}>
-              PreferÃªncias de NotificaÃ§Ã£o
+              Preferéªncias de Notificaçéo
             </Typography>
             <Stack spacing={2}>
               <Card sx={{ background: '#FFFFFF', border: '1px solid #E2E8F0' }}>
@@ -451,10 +451,10 @@ export default function Profile() {
                     label={
                       <Box>
                         <Typography sx={{ color: '#1A202C', fontWeight: 600 }}>
-                          NotificaÃ§Ãµes por Email
+                          Notificaçéµes por Email
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
-                          Receba atualizaÃ§Ãµes sobre consultas e lembretes
+                          Receba atualizaçéµes sobre consultas e lembretes
                         </Typography>
                       </Box>
                     }
@@ -478,10 +478,10 @@ export default function Profile() {
                     label={
                       <Box>
                         <Typography sx={{ color: '#1A202C', fontWeight: 600 }}>
-                          NotificaÃ§Ãµes Push
+                          Notificaçéµes Push
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
-                          Receba notificaÃ§Ãµes instantÃ¢neas no aplicativo
+                          Receba notificaçéµes instanté¢neas no aplicativo
                         </Typography>
                       </Box>
                     }
@@ -505,7 +505,7 @@ export default function Profile() {
                     label={
                       <Box>
                         <Typography sx={{ color: '#1A202C', fontWeight: 600 }}>
-                          RelatÃ³rio Semanal
+                          Relaté³rio Semanal
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
                           Resumo semanal de atividades
@@ -532,10 +532,10 @@ export default function Profile() {
                     label={
                       <Box>
                         <Typography sx={{ color: '#1A202C', fontWeight: 600 }}>
-                          RelatÃ³rio Mensal
+                          Relaté³rio Mensal
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
-                          RelatÃ³rio completo mensal
+                          Relaté³rio completo mensal
                         </Typography>
                       </Box>
                     }
@@ -546,11 +546,11 @@ export default function Profile() {
           </Box>
         </TabPanel>
 
-        {/* Tab 3 - PreferÃªncias */}
+        {/* Tab 3 - Preferéªncias */}
         <TabPanel value={tabValue} index={3}>
           <Box sx={{ p: 3 }}>
             <Typography variant="h6" sx={{ color: '#1A202C', mb: 3 }}>
-              PreferÃªncias do Sistema
+              Preferéªncias do Sistema
             </Typography>
             <Stack spacing={2}>
               <Card sx={{ background: '#FFFFFF', border: '1px solid #E2E8F0' }}>
@@ -596,10 +596,10 @@ export default function Profile() {
                     label={
                       <Box>
                         <Typography sx={{ color: '#1A202C', fontWeight: 600 }}>
-                          VisualizaÃ§Ã£o Compacta
+                          Visualizaçéo Compacta
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
-                          Mostrar mais informaÃ§Ãµes em menos espaÃ§o
+                          Mostrar mais informaçéµes em menos espaço
                         </Typography>
                       </Box>
                     }
@@ -626,7 +626,7 @@ export default function Profile() {
                           Alertas Sonoros
                         </Typography>
                         <Typography variant="caption" sx={{ color: '#718096' }}>
-                          Sons para notificaÃ§Ãµes e alertas
+                          Sons para notificaçéµes e alertas
                         </Typography>
                       </Box>
                     }
