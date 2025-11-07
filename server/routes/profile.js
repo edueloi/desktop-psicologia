@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const { authenticateToken } = require('./auth');
+const bcrypt = require('bcrypt');
 
 // GET /api/profile - Buscar perfil do usuário
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
-    // Por enquanto, retornamos um perfil padrão
-    // TODO: Implementar autenticação e pegar o ID do usuário logado
-    const userId = 1;
+    const userId = req.user.id;
 
     const user = await req.db('users')
       .where({ id: userId })
@@ -25,9 +25,9 @@ router.get('/', async (req, res) => {
 });
 
 // PUT /api/profile - Atualizar perfil
-router.put('/', async (req, res) => {
+router.put('/', authenticateToken, async (req, res) => {
   try {
-    const userId = 1; // TODO: Pegar do token de autenticação
+    const userId = req.user.id;
     const {
       name,
       email,
@@ -68,9 +68,9 @@ router.put('/', async (req, res) => {
 });
 
 // PUT /api/profile/password - Alterar senha
-router.put('/password', async (req, res) => {
+router.put('/password', authenticateToken, async (req, res) => {
   try {
-    const userId = 1; // TODO: Pegar do token
+    const userId = req.user.id;
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {
@@ -80,7 +80,7 @@ router.put('/password', async (req, res) => {
     // Buscar usuário
     const user = await req.db('users')
       .where({ id: userId })
-      .select('id', 'password')
+      .select('id', 'password_hash')
       .first();
 
     if (!user) {
@@ -88,8 +88,7 @@ router.put('/password', async (req, res) => {
     }
 
     // Verificar senha atual
-    const bcrypt = require('bcrypt');
-    const isValid = await bcrypt.compare(currentPassword, user.password);
+    const isValid = await bcrypt.compare(currentPassword, user.password_hash);
 
     if (!isValid) {
       return res.status(401).json({ message: 'Senha atual incorreta' });
@@ -101,7 +100,7 @@ router.put('/password', async (req, res) => {
     // Atualizar senha
     await req.db('users')
       .where({ id: userId })
-      .update({ password: hashedPassword });
+      .update({ password_hash: hashedPassword });
 
     res.json({ message: 'Senha alterada com sucesso' });
   } catch (error) {
@@ -111,9 +110,9 @@ router.put('/password', async (req, res) => {
 });
 
 // GET /api/profile/statistics - Estatísticas do perfil
-router.get('/statistics', async (req, res) => {
+router.get('/statistics', authenticateToken, async (req, res) => {
   try {
-    const userId = 1; // TODO: Pegar do token
+    const userId = req.user.id;
 
     // Total de pacientes
     const totalPatients = await req.db('patients')
